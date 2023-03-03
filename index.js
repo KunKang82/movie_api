@@ -1,7 +1,5 @@
 const express = require("express"),
-    morgan = require("morgan"),
-    fs = require('fs),'),
-    path = require('path');
+    morgan = require("morgan");   
 
 const app = express();
 
@@ -64,8 +62,6 @@ app.get("/documentation", (req, res) => {
 //API Routes
 app.get("/movies", (req, res) => {
     res.json(topMovies);
-
-
 });
 
 //Error Handling
