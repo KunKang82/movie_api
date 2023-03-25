@@ -1,0 +1,4 @@
+{"_id":{"$oid":"6417932d4e399a84557d5da8"},"username":"Paul Jackson","password":"password1","email":"paul_jackson@gmail.com","birthday":{"$date":"1982-01-28T00:00:00Z"},"favoriteMovies":[{"$oid":"64178e864e399a84557d5da6"}]}
+{"_id":{"$oid":"6417941e4e399a84557d5da9"},"username":"Matthew Johnson","password":"password2","email":"matthew_johnsontest@hotmail.com","birthday":{"$date":"1985-07-23T00:00:00Z"},"favoriteMovies":[{"$oid":"64178c464e399a84557d5da3"}]}
+{"_id":{"$oid":"641794674e399a84557d5daa"},"username":"Kevin Smith","password":"password3","email":"kevin_smithtest@yahoo.com","birthday":{"$date":"2023-06-13T00:00:00Z"},"favoriteMovies":[{"$oid":"641787c94e399a84557d5d9e"}]}
+{"_id":{"$oid":"6417957c4e399a84557d5dac"},"username":"Lina Hamilton","password":"password5","email":"lina_hamiltontest@hotmail.com","birthday":{"$date":"2017-09-30T00:00:00Z"},"favoriteMovies":[{"$oid":"64178b2a4e399a84557d5da1"}]}

@@ -22,14 +22,9 @@
         <h2>Features</h2>
         <ul>
             <li>Return a list of ALL movies to the user</li>
-            <li>
-                Return data (description, genre, director, image URL, whether it's
-                featured or not) about a single movie by title to the user
-            </li>
+            <li>Return data (description, genre, director, image URL, whether it's featured or not) about a single movie by title to the user</li>
             <li>Return data about a genre (description) by name/title</li>
-            <li>
-                Return data about a director (bio, birth year, death year) by name
-            </li>
+            <li>Return data about a director (bio, birth year, death year) by name</li>
             <li>Allow new users to register</li>
             <li>Allow users to update their user info</li>
             <li>Allow users to add a movie to their list of favorites</li>
@@ -94,10 +89,7 @@
                 <td>/users</td>
                 <td>POST</td>
                 <td>-</td>
-                <td>
-                    A JSON object holding data about the user to add, structured like: {
-                    "name" : "John" }
-                </td>
+                <td>A JSON object holding data about the user to add, structured like: {"name" : "John"}</td>
                 <td>A JSON object holding data about the user that was added</td>
             </tr>
 
@@ -116,10 +108,7 @@
                 <td>POST</td>
                 <td>:id, :movieTitle</td>
                 <td>-</td>
-                <td>
-                    A JSON object holding data about the user and the movie that was
-                    added
-                </td>
+                <td>A JSON object holding data about the user and the movie that was added</td>
             </tr>
 
             <tr>
@@ -128,10 +117,7 @@
                 <td>DELETE</td>
                 <td>:id, :movieTitle</td>
                 <td>-</td>
-                <td>
-                    A JSON object holding data about the user and the movie that was
-                    removed
-                </td>
+                <td>A JSON object holding data about the user and the movie that was removed</td>
             </tr>
 
             <tr>
@@ -140,10 +126,7 @@
                 <td>DELETE</td>
                 <td>:id</td>
                 <td>-</td>
-                <td>
-                    A text message indicating whether the user has successfully
-                    deregistered
-                </td>
+                <td>A text message indicating whether the user has successfully deregistered</td>
             </tr>
         </tbody>
     </table>
