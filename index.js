@@ -175,7 +175,7 @@ app.put('/users/:Username', (req, res) => {
 app.delete("/users/:Username/movies/:MovieID", (req, res) => {
     Users.findOneAndUpdate(
         { Username: req.params.Username },
-        { $push: { FavoriteMovies: req.params.MovieID } },
+        { $pull: { FavoriteMovies: req.params.MovieID } },
         { new: true} // This line makes sure that he updated document is returned
     ).then(updatedUser => {
         res.json(updatedUser);
