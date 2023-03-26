@@ -16,7 +16,7 @@ const
 
 
 //Integrating Mongoose with RESTAPI cfDB is the name of database with movies and users
-mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://127.0.0.1:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(morgan('common'));
 app.use(express.static('public'));
