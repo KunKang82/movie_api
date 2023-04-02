@@ -1,17 +1,17 @@
 //Importing all needed packages locally
 const express = require("express"),
-    bodyParser = require("body-parser");
-    uuid = require('uuid');
+    bodyParser = require("body-parser"),
+    uuid = require('uuid'),
     morgan = require("morgan");
 const
     app = express();
 const
-    mongoose = require("mongoose");
+    mongoose = require("mongoose"),
     Models = require("./models.js");
 const
-    Movies = Models.Movie;
-    Users = Models.User;
-    Genres = Models.Genre;
+    Movies = Models.Movie,
+    Users = Models.User,
+    Genres = Models.Genre,
     Directors = Models.Director;
 
 
@@ -82,7 +82,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 });
 
 // Get all users
-app.get('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/users', (req, res) => {
     Users.find()
         .then((users) => {
             res.status(201).json(users);
@@ -106,7 +106,7 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 });
 
 //CREATE
-app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post('/users', (req, res) => {
     Users.findOne({ Username: req.body.Username })
         .then((user) => {
             if (user) {
@@ -191,7 +191,7 @@ app.delete("/users/:Username/movies/:MovieID", passport.authenticate('jwt', { se
 })
 
 // Delete a user by username
-app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.delete('/users/:Username', (req, res) => {
     Users.findOneAndRemove({ Username: req.params.Username })
         .then((user) => {
             if (!user) {
