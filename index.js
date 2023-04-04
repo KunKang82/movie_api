@@ -17,7 +17,9 @@ const
 const { check, validationResult } = require('express-validator'); //Import the express validator library into index.js
 
 //Integrating Mongoose with RESTAPI cfDB is the name of database with movies and users
-mongoose.connect('mongodb://127.0.0.1:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb://127.0.0.1:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb+srv://kunkang82:Password1@cfdb.iyxpqo3.mongodb.net/cfDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const cors = require('cors');
 app.use(cors()); //All origins have access
