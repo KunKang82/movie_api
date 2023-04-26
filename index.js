@@ -151,11 +151,12 @@ app.post('/users',
         .then((user) => {
             if (user) {
             //If the user is found, send a response that it already exists    
-                return res.status(400).send(req.body.Username + 'already exists');
+                return res.status(400).send(req.body.Username + ' already exists');
             } else {
                 Users.create({
                         Username: req.body.Username,
-                        Password: req.body.Password,
+                        // Password: req.body.Password,
+                        Password: hashedPassword,
                         Email: req.body.Email,
                         Birthday: req.body.Birthday
                     })
