@@ -16,11 +16,16 @@ const
 
 const { check, validationResult } = require('express-validator'); //Import the express validator library into index.js
 
+
 //Integrating Mongoose with RESTAPI cfDB is the name of database with movies and users
 // mongoose.connect('mongodb://127.0.0.1:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 // mongoose.connect('mongodb+srv://kunkang82:Password1@cfdb.iyxpqo3.mongodb.net/cfDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+/**
+ * connection to online database hosted by MongoDB
+ */
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+// Use Cross-Origin Resource Sharing
 const cors = require('cors');
 // app.use(cors()); //All origins have access, shouldn't get any CORS errors, but not recommended
 // If you want only certain origins to be given access, replace app.use(cors()); with the following code:
@@ -37,23 +42,32 @@ app.use(cors({
     }
 }));
 
+// Turn on body-parser to read JSON from req-body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Requie passport module and import auth.js and passport.js
 let auth = require('./auth')(app);
-
 const passport = require('passport');
 require('./passport');
 
+// Turn on logging
 app.use(morgan('common'));
+// Direct requests to public folder
 app.use(express.static('public'));
 
 // GET requests
+/**
+ * Welcom page text response
+ */
 app.get('/', (req, res) => {
     res.send("Welcome to my Movie app!");
 });
 
 //Read
+/**
+ * Retrieves a list of all movies
+ */
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.find()
         .then(movies => {
@@ -66,6 +80,9 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
 });
 
 //Search movie by title
+/**
+ * Retrieves a specific movie by its' title
+ */
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ Title: req.params.Title })
         .then(movie => {
@@ -77,6 +94,9 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
         });
 });
 
+/**
+ * Retrieves a specific Genre by its' title
+ */
 //Search movie by genre
 app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ "Genre.Name": req.params.genreName })
@@ -89,6 +109,9 @@ app.get('/movies/genre/:genreName', passport.authenticate('jwt', { session: fals
         });
 });
 
+/**
+ * Retrieves a specific Director by their name
+ */
 //Search movie by director name
 app.get('/movies/directors/:directorName', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({ "Director.Name": req.params.directorName })
@@ -102,6 +125,9 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
 });
 
 // Get all users
+/**
+ * Retrieves all registered users
+ */
 app.get('/users', (req, res) => {
     Users.find()
         .then((users) => {
@@ -114,6 +140,9 @@ app.get('/users', (req, res) => {
 });
 
 // Get a user by username
+/**
+ * Retrieves a specifc user by their name
+ */
 app.get('/users/:Username', (req, res) => {
     Users.findOne({ Username: req.params.Username })
         .then((users) => {
@@ -126,6 +155,9 @@ app.get('/users/:Username', (req, res) => {
 });
 
 //CREATE - Add a user
+/***
+ * Allows users to register by filling out require information
+ */
 app.post('/users',
     // Validation logic here for request
     //you can either use a chain of methods like .not().isEmpty()
@@ -174,6 +206,9 @@ app.post('/users',
     });
 
 // Add a movie to a user's list of favorites
+/**
+ * Allows registered users to add a movie to their favorites
+ */
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
     Users.findOneAndUpdate(
         { Username: req.params.Username },
@@ -187,37 +222,9 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
     });
 });
 
-// Update a user's info, by username
-/* We’ll expect JSON in this format
-{
-    Username: String,
-    (required)
-    Password: String,
-    (required)
-    Email: String,
-    (required)
-    Birthday: Date
-}*/
-// app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
-//     Users.findOneAndUpdate(
-//         { Username: req.params.Username },
-//         {
-//             $set: {
-//             Username: req.body.Username,
-//             // Password: req.body.Password,
-//             Password: hashedPassword,
-//             Email: req.body.Email,
-//             Birthday: req.body.Birthday
-//             }
-//         },
-//         { new: true }, // This line makes sure that the updated document is returned
-//     ).then(updatedUser => {
-//         res.json(updatedUser);
-//     }).catch(err => {
-//         console.error(err);
-//         res.status(500).send('Error: ' + err);
-//     });
-// });
+/** 
+ * Update a a user info by username:
+ */
 app.put('/users/:Username',
     [
         check('Username', 'Username is required').isLength({ min: 5 }),
@@ -234,6 +241,9 @@ app.put('/users/:Username',
 
         let hashedPassword = Users.hasPassword(req.body.Password);
 
+        /**
+         * Update user to database
+         */
         Users.findOneAndUpdate(
             { Username: req.params.Username },
             {

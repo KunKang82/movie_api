@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');//Import module into you "models.js" file
 
+/**
+ * Movie Schema to save movie data
+ */
 let movieSchema = mongoose.Schema({
     Title: {type: String, required: true},
     Description: {type: String, required: true},
@@ -17,6 +20,9 @@ let movieSchema = mongoose.Schema({
     Featured: Boolean
 });
 
+/**
+ * User Schema to save user data
+ */
 let userSchema = mongoose.Schema({
     Username: {type: String, required: true},
     Password: {type: String, required: true},
